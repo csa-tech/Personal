@@ -10,7 +10,6 @@ var createError = require('http-errors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pageview = require('./routes/pageview');
-var 
 
 var app = express();
 var upload = multer({dast: 'upload/' });

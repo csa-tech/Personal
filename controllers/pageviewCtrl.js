@@ -27,7 +27,7 @@ connection.connect(function(err) {
 Getpersonal = function (req, res, next) {
   try {
     var input = req.query;
-    connection.query('SELECT * FROM rideshare.personal WHERE user_ID = '$input.user_ID';', function(err, rows, fields) { //这里写SQL query
+    connection.query(`SELECT * FROM rideshare.personal WHERE user_ID = '${input.user_ID}';`, function(err, rows, fields) { //这里写SQL query
       if (err) { throw err; } //出错时交给后面的finally去处理      
 
       // 成功时的处理
@@ -45,15 +45,15 @@ InputPersonal = function(req, res, next) {
   try {
     var input = req.query;
     var string = input.user_ID
-
     // queryString = 'SELECT count FROM rideshare.pageview;'
-    connection.query('SELECT * FROM rideshare.personal WHERE user_ID = '$input.user_ID';', function(err, rows, fields) {
+    connection.query(`SELECT * FROM rideshare.personal WHERE user_ID = '${input.user_ID}';`, function(err, rows, fields) {
+      // input.user_ID appears to be undefined
       if (err) { throw err; }
       //图片不知道怎么上传
 
       nickName = rows[1].nickName;
 
-      queryString = 'UPDATE rideshare.personal SET nickName=' + nickName + 'WHERE user_ID = '${string}', update_time=NOW();'
+      queryString = `UPDATE rideshare.personal SET nickName= + nickName + WHERE user_ID = '${string}', update_time=NOW();`
       connection.query(queryString, function(err, rows, fields) {
         if (err) { throw err; }
         res.status(200).send('Sucess. New nickName: ' + nickName); 
@@ -61,7 +61,7 @@ InputPersonal = function(req, res, next) {
 
       phoneNum = rows[2].phoneNum;
 
-      queryString = 'UPDATE rideshare.personal SET phoneNum=' + phoneNum + 'WHERE user_ID = '${string}', update_time=NOW();'
+      queryString = `UPDATE rideshare.personal SET phoneNum= + phoneNum + WHERE user_ID = '${string}', update_time=NOW();`
       connection.query(queryString, function(err, rows, fields) {
         if (err) { throw err; }
         res.status(200).send('Sucess. New phoneNum: ' + phoneNum); 
@@ -69,7 +69,7 @@ InputPersonal = function(req, res, next) {
 
       carType = rows[3].carType;
 
-      queryString = 'UPDATE rideshare.personal SET carType=' + carType + 'WHERE user_ID = '${string}', update_time=NOW();'
+      queryString = `UPDATE rideshare.personal SET carType=' + carType + 'WHERE user_ID = '${string}', update_time=NOW();`
       connection.query(queryString, function(err, rows, fields) {
         if (err) { throw err; }
         res.status(200).send('Sucess. New carType: ' + carType); 
@@ -77,7 +77,7 @@ InputPersonal = function(req, res, next) {
 
       carNum = rows[4].carNum;
 
-      queryString = 'UPDATE rideshare.personal SET carNum=' + carNum + 'WHERE user_ID = '${string}', update_time=NOW();'
+      queryString = `UPDATE rideshare.personal SET carNum=' + carNum + 'WHERE user_ID = '${string}', update_time=NOW();`
       connection.query(queryString, function(err, rows, fields) {
         if (err) { throw err; }
         res.status(200).send('Sucess. New carNum: ' + carNum); 
@@ -85,7 +85,7 @@ InputPersonal = function(req, res, next) {
 
       carCol = rows[5].carCol;
 
-      queryString = 'UPDATE rideshare.personal SET carCol=' + carCol + 'WHERE user_ID = '${string}', update_time=NOW();'
+      queryString = `UPDATE rideshare.personal SET carCol=' + carCol + 'WHERE user_ID = '${string}', update_time=NOW();`
       connection.query(queryString, function(err, rows, fields) {
         if (err) { throw err; }
         res.status(200).send('Sucess. New carCol: ' + carCol); 

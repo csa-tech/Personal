@@ -6,7 +6,7 @@ var router = express.Router();
 // 这个处理GET方法的“查看”
 router.get('/', function(req, res, next) {
   pageviewCtrl.InputPersonal(req, res, next);
-});
+}); 
 
 // 这个处理POST方法的“修改”
 router.post('/', function(req, res, next) {
