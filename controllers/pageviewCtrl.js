@@ -38,30 +38,38 @@ InputPersonal = function(req, res, next){
     connection.query(`SELECT * FROM rideshare.user_info WHERE user_id = '${string}';`, function(err, rows, fields) {
       if (err) {throw err;}
       name = rows[0].name;
-      connection.query(`UPDATE rideshare.user_info SET name = '` + name + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
+      phoneNum = rows[0].phoneNum;
+      carType = rows[0].carType;
+      carLicense = rows[0].carLicense;
+      carColor = rows[0].carColor;
+      connection.query(`UPDATE rideshare.user_info SET name = '` + name + `
+                                          ',phoneNum = '` + phoneNum + `
+                                          ',carType = '` + carType + `
+                                          ',carLicense = '` + carLicense + `
+                                          ',carColor = '` + carColor + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
         if(err){throw err;}
         res.status(200).send('Success. New Name: ' + name);
       });
-      phoneNum = rows[0].phoneNum;
-      connection.query(`UPDATE rideshare.user_info SET phoneNum = '` + phoneNum + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
-        if(err){throw err;}
-        res.status(200).send('Success. New phoneNum: ' + phoneNum);
-      });
-      carType = rows[0].carType;
-      connection.query(`UPDATE rideshare.user_info SET carType = '` + carType + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
-        if(err){throw err;}
-        res.status(200).send('Success. New carType: ' + carType);
-      });
-      carLicense = rows[0].carLicense;
-      connection.query(`UPDATE rideshare.user_info SET carLicense = '` + carLicense + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
-        if(err){throw err;}
-        res.status(200).send('Success. New carLicense: ' + carLicense);
-      });
-      carColor = rows[0].carColor;
-      connection.query(`UPDATE rideshare.user_info SET carColor = '` + carColor + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
-        if(err){throw err;}
-        res.status(200).send('Success. New carColor: ' + carColor);
-      });
+      // phoneNum = rows[0].phoneNum;
+      // connection.query(`UPDATE rideshare.user_info SET phoneNum = '` + phoneNum + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
+      //   if(err){throw err;}
+      //   res.status(200).send('Success. New phoneNum: ' + phoneNum);
+      // });
+      // carType = rows[0].carType;
+      // connection.query(`UPDATE rideshare.user_info SET carType = '` + carType + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
+      //   if(err){throw err;}
+      //   res.status(200).send('Success. New carType: ' + carType);
+      // });
+      // carLicense = rows[0].carLicense;
+      // connection.query(`UPDATE rideshare.user_info SET carLicense = '` + carLicense + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
+      //   if(err){throw err;}
+      //   res.status(200).send('Success. New carLicense: ' + carLicense);
+      // });
+      // carColor = rows[0].carColor;
+      // connection.query(`UPDATE rideshare.user_info SET carColor = '` + carColor + `' WHERE user_ID = '${string}';`, function(err, rows, fields) {
+      //   if(err){throw err;}
+      //   res.status(200).send('Success. New carColor: ' + carColor);
+      // });
     });
   }catch(err){
     res.status(500).send("Server Error: " + err);
