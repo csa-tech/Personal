@@ -34,21 +34,24 @@ InputPersonal = function(req, res, next){
     connection.query(`SELECT * FROM rideshare.user_info WHERE user_id = '${string}';`, function(err, rows, fields) {
       if (err) {throw err;}
       var $ = rows[0];
-      connection.query(`UPDATE rideshare.user_info SET 
-                                                    name = '` + $.name + `',
-                                                    phoneNum = '` + $.phoneNum + `',
-                                                    carType = '` + $.carType + `',
-                                                    carLicense = '` + $.carLicense + `',
-                                                    carColor = '` + $.carColor + `' 
-                                                    WHERE user_ID = '${string}';`, function(err, rows, fields) {
-      if(err){throw err;}
-      res.status(200).send('Success added name: ' + $.name + '\n',
-                           'Success added phoneNum: ' + $.phoneNum + '\n',
-                           'Success added carType: ' + $.carType + '\n',
-                           'Success added carLicense: ' + $.carLicense + '\n',
-                           'Success added carColor: ' + $.carColor + '\n');
+      connection.query("UPDATE rideshare.user_info SET name = ?, phoneNum = ?, carType = ?, carLicense = ?, carColor = ?, WHERE user_ID = ?;", 
+        [
+          name,
+          phoneNum,
+          carType,
+          carLicense,
+          carColor,
+          string
+        ],
+        function(err, rows, fields) {
+          if(err){throw err;}
+          res.status(200).send('Success added name: ' + $.name + '\n',
+                              'Success added phoneNum: ' + $.phoneNum + '\n',
+                              'Success added carType: ' + $.carType + '\n',
+                              'Success added carLicense: ' + $.carLicense + '\n',
+                              'Success added carColor: ' + $.carColor + '\n');
+          });
       });
-    });
   }catch(err){
     res.status(500).send("Server Error: " + err);
     connection.end();
