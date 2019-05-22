@@ -18,10 +18,14 @@ connection.connect(function(err) {
 
 Getpersonal = function (req, res, next) { 
   try {
-    connection.query(`SELECT * FROM rideshare.user_info WHERE user_id = '${req.query.user_ID}';`, function(err, rows, fields) { //这里写SQL query
-      if (err) { throw err; } 
-      res.status(200).send(rows);
-    });
+    connection.query("SELECT * FROM rideshare.user_info WHERE user_id = ?;", 
+      [
+        req.query.user_ID
+      ],
+      function(err, rows, fields) { //这里写SQL query
+        if (err) { throw err; } 
+        res.status(200).send(rows);
+      });
   } catch(err) {
     res.status(500).send('SERVER ERROR:' + err);
     connection.end();
@@ -31,7 +35,11 @@ InputPersonal = function(req, res, next){
   try{
     var input = req.query;
     var string = input.user_ID;
-    connection.query(`SELECT * FROM rideshare.user_info WHERE user_id = '${string}';`, function(err, rows, fields) {
+    connection.query("SELECT * FROM rideshare.user_info WHERE user_id = ?;", 
+      [
+        string
+      ],
+      function(err, rows, fields) {
       if (err) {throw err;}
       var $ = rows[0];
       connection.query("UPDATE rideshare.user_info SET name = ?, phoneNum = ?, carType = ?, carLicense = ?, carColor = ?, WHERE user_ID = ?;", 
